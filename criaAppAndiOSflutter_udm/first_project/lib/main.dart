@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 void main() => runApp(MyApp());
 
@@ -7,7 +8,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Tell me Something',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -18,9 +19,9 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.green,
+        primarySwatch: Colors.deepPurple,
       ),
-      home: MyHomePage(title: 'Lamento Della Ninfa'),
+      home: MyHomePage(title: 'Tell me Something'),
     );
   }
 }
@@ -45,27 +46,38 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  
+  final _random = new Random();
+  var _motivation = {
+    0: "Epic",
+    1: "I found it offensive",
+    2: "Agree",
+    3: "I'm calling the police",
+    4: "Approved",
+    5: "Stop to bullying me",
+    6: "Very impressive",
+    7: "OMG",
+    8: "Unbelievable",
+    9: "Nice",
+    10: "Now I am... ANGRY!!!",
+    11: "That's Epic!",
+    12: "That's ILLEGAL!",
+    13: "Disappointed",
+    14: "I almost had a stroke",
+    15: "Check Matte!",
+    16: "MIND-BLOWING!",
+  }; 
 
-  void _showDialog(){
-    showDialog(
-      context: context,
-      builder: (BuildContext context){
-        return AlertDialog(
-          content: new Text("Stop it!")
-        );
-      }
-    );
-  }
-
-  void _incrementCounter() {
+  void _looper(){
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
       _counter++;
-      _showDialog();
+      _counter = _counter % _motivation.length;
+    });
+  }
+  
+  void _randomic(){
+    setState(() {
+      _counter = _random.nextInt(_motivation.length - 0);
     });
   }
 
@@ -104,20 +116,18 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
+              '${_motivation[_counter]}',
+              style: Theme.of(context).textTheme.display1
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
+        onPressed: _randomic,
+        tooltip: 'Decrement',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
+
     );
   }
 }
